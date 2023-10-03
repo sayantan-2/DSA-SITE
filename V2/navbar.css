@@ -20,11 +20,18 @@ body {
 
 .active1 {
   background-color: #04aa6d;
+  border-radius: 100px;
+  font-size: 10px;
   color: white;
+  margin: 10px;
 }
 
 .topnav .icon {
   display: none;
+  background: rgb(190, 181, 181);
+  color: rgb(0, 0, 0);
+  border-radius: 15px;
+  margin: 10px;
 }
 
 .dropdown {

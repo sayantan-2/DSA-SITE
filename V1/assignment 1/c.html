@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ASSIGNMENT-1 C</title>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/styles/monokai-sublime.min.css" />
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"></script>
+  <!-- Add Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="/V1/style.css" type="text/css" />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WHYXKY8GB7"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
+
+    gtag("config", "G-WHYXKY8GB7");
+  </script>
+</head>
+
+<body>
+  <div id="navbar"></div>
+
+  <!-- <div id="repoContentCount"></div> -->
+  <div class="accordion" id="accordionExample"></div>
+
+  <script>
+    fetch("/V1/navbar.html")
+      .then((response) => response.text())
+      .then((data) => (document.getElementById("navbar").innerHTML = data));
+  </script>
+  <script>
+    const owner = "sayantan-2";
+    const repo = "CSE-DSA-LAB";
+    const baseURL = "https://api.github.com";
+
+    async function getRepoContentCount(path = "") {
+      let fileCount = 0;
+      let folderCount = 0;
+      const url = `${baseURL}/repos/${owner}/${repo}/contents/${path}`;
+      const response = await fetch(url);
+      const data = await response.json();
+      for (const item of data) {
+        if (item.type === "file" && item.name.endsWith(".c")) {
+          fileCount++;
+        } else if (item.type === "dir") {
+          folderCount++;
+          const [subFolderCount, subFileCount] = await getRepoContentCount(
+            item.path
+          );
+          folderCount += subFolderCount;
+          fileCount += subFileCount;
+        }
+      }
+      return [folderCount, fileCount];
+    }
+
+    async function main() {
+      const path = "assignment 1/c";
+      const [folderCount, fileCount] = await getRepoContentCount(path);
+      const repoContentCount = document.querySelector("#repoContentCount");
+      <!-- repoContentCount.textContent = `Total Python files in ${path}: ${fileCount}`; -->
+
+      const urls = [];
+      for (let i = 1; i <= fileCount; i++) {
+        // Add the URL for the Python file inside the programs folder
+        urls.push(
+          `https://cdn.jsdelivr.net/gh/${owner}/${repo}@main/assignment%201/c/programs/${i}.c`
+
+        );
+        // Add the URL for the text file inside the output folder
+        urls.push(
+          `https://cdn.jsdelivr.net/gh/${owner}/${repo}@main/assignment%201/c/output/${i}.txt`
+        );
+        // Add the URL for the text file inside the question folder
+        urls.push(
+          `https://cdn.jsdelivr.net/gh/${owner}/${repo}@main/assignment%201/question/${i}.txt`
+        );
+      }
+
+      Promise.all(urls.map((url) => fetch(url)))
+        .then((responses) =>
+          Promise.all(responses.map((response) => response.text()))
+        )
+        .then((texts) => {
+          const accordionExample =
+            document.querySelector("#accordionExample");
+          texts.forEach((text, index) => {
+            if (index % 3 === 0) {
+              // Create accordion item
+              const accordionItem = document.createElement("div");
+              accordionItem.classList.add("accordion-item");
+              // const body=document.getElementsByClassName("accordion-body");
+              // body.classList.add("Code")
+
+
+              // Create accordion header
+              const accordionHeader = document.createElement("h2");
+              accordionHeader.classList.add("accordion-header");
+
+              // Create accordion button
+              const accordionButton = document.createElement("button");
+              accordionButton.classList.add("accordion-button", "collapsed");
+              accordionButton.setAttribute("type", "button");
+              accordionButton.setAttribute("data-bs-toggle", "collapse");
+              accordionButton.setAttribute(
+                "data-bs-target",
+                `#collapse${index / 3}`
+              );
+              accordionButton.setAttribute("aria-expanded", "false");
+              accordionButton.setAttribute(
+                "aria-controls",
+                `collapse${index / 3}`
+              );
+
+              // Create h2 element for question number
+              const h2Text = document.createElement("h2");
+              h2Text.textContent = `Q.${index / 3 + 1}`;
+
+
+              // Append h2 element to button
+              accordionButton.appendChild(h2Text);
+
+              // Create pre or p element for button text
+              let textElement;
+              if (index < 9) {
+                textElement = document.createElement("pre");
+              } else {
+                textElement = document.createElement("p");
+              }
+              textElement.textContent = texts[index + 2];
+
+              // Append text element to button
+              accordionButton.appendChild(textElement);
+
+              // Create accordion collapse
+              const accordionCollapse = document.createElement("div");
+              accordionCollapse.classList.add(
+                "accordion-collapse",
+                "collapse"
+              );
+              accordionCollapse.setAttribute("id", `collapse${index / 3}`);
+              accordionCollapse.setAttribute(
+                "data-bs-parent",
+                "#accordionExample"
+              );
+
+              // Create accordion body
+              const accordionBody = document.createElement("div");
+              accordionBody.classList.add("accordion-body");
+
+              accordionBody.innerHTML += `<h3>Code<h3>`
+
+              // Create pre element for code
+              const preCode = document.createElement("pre");
+              preCode.classList.add("python-code");
+
+              // Create code element for code
+              const codeCode = document.createElement("code");
+              codeCode.classList.add("python");
+              codeCode.textContent = text;
+
+              // Append code elements
+              preCode.appendChild(codeCode);
+              hljs.highlightElement(codeCode);
+
+              // Append code to body
+              accordionBody.appendChild(preCode);
+
+              // Append button to header
+              accordionHeader.appendChild(accordionButton);
+
+              // Append body to collapse
+              accordionCollapse.appendChild(accordionBody);
+
+              // Append header and collapse to item
+              accordionItem.appendChild(accordionHeader);
+              accordionItem.appendChild(accordionCollapse);
+
+              // Append item to accordion
+              accordionExample.appendChild(accordionItem);
+            } else if (index % 3 === 1) {
+              // Create pre or p element for text
+
+              let textElement;
+
+
+              textElement = document.createElement("pre");
+              textElement.classList.add("output");
+              textElement.textContent = text;
+              const accordionBody = accordionExample.querySelector(
+                `#collapse${Math.floor(index / 3)} .accordion-body`
+              );
+              // heading
+              accordionBody.innerHTML += `<h3>Output<h3>`
+              accordionBody.appendChild(textElement);
+            }
+          });
+        });
+    }
+
+    main();
+  </script>
+  <!-- Add Bootstrap JavaScript -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
