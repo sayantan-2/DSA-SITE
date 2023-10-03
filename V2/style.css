@@ -1,0 +1,209 @@
+
+/* MAIN CSS */
+/* Dot controls */
+.dots-controls {
+  position: absolute;
+  top: 4.5rem;
+  left: 2.5rem;
+  display: flex;
+  z-index: 1;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 5px;
+}
+
+.red {
+  background-color: #ff5f57;
+  /* Red */
+}
+
+.yellow {
+  background-color: #ffc952;
+  /* Yellow */
+}
+
+.green {
+  background-color: #2ecc71;
+  /* Green */
+}
+
+.mt-5,
+.my-5 {
+  margin-top: 3rem !important;
+  margin-bottom: 3rem;
+}
+
+/*body*/
+body {
+  background-image: linear-gradient(
+    175deg,
+    hsl(55deg 100% 50%) 0%,
+    hsl(50deg 100% 50%) 3%,
+    hsl(45deg 100% 50%) 6%,
+    hsl(40deg 100% 50%) 10%,
+    hsl(34deg 100% 50%) 14%,
+    hsl(29deg 100% 50%) 19%,
+    hsl(23deg 100% 50%) 24%,
+    hsl(357deg 100% 60%) 30%,
+    hsl(336deg 100% 50%) 37%,
+    hsl(326deg 100% 50%) 47%,
+    hsl(309deg 100% 44%) 61%,
+    hsl(278deg 76% 55%) 84%,
+    hsl(220deg 100% 50%) 100%
+  );
+}
+
+/*button*/
+.btn {
+  text-align: left;
+}
+
+.btn-link {
+  font-weight: 500;
+  color: black;
+  text-decoration: none;
+}
+
+.btn-link:hover {
+  color: black;
+  text-decoration: none;
+}
+
+.btn-link.focus,
+.btn-link:focus {
+  text-decoration: none;
+  background-color: rgba(12, 12, 12, 0.15);
+}
+
+/*card*/
+.card-header:first-child {
+  border-radius: 15px;
+}
+
+.card-header {
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 0;
+  border-bottom: none;
+  background-color: rgba(0, 0, 0, 0.25);
+}
+
+.card-body {
+  position: relative;
+  background: rgba(189, 175, 175, 0.14);
+  border-radius: 16px;
+  backdrop-filter: blur(0.2px);
+  -webkit-backdrop-filter: blur(0.2px);
+  padding-bottom: 0;
+}
+
+.card-footer {
+  padding: 0.75rem 1.25rem;
+  border-top: none;
+  background: rgba(189, 175, 175, 0.14);
+  border-radius: 16px;
+  backdrop-filter: blur(0.2px);
+  -webkit-backdrop-filter: blur(0.2px);
+}
+
+.collapse.show {
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(0.2px);
+  -webkit-backdrop-filter: blur(0.2px);
+}
+
+.card {
+  background: rgba(189, 175, 175, 0.14);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+.card-footer:last-child {
+  border-radius: 15px;
+}
+
+/*lang tab*/
+.nav-tabs {
+  border-bottom: none;
+  padding-left: 15px;
+}
+
+.nav-tabs .nav-item.show .nav-link,
+.nav-tabs .nav-link.active {
+  color: #2f44b8;
+  background: rgb(0, 0, 0, 0.85);
+  border-color: #000000 #000000 #2f44b8;
+}
+
+.nav-tabs .nav-link {
+  border: 1px solid black;
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+  background: rgba(201, 183, 183, 0.3);
+  color: black;
+}
+/*code area*/
+pre code.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 2em 1em 1em 1em;
+}
+
+.hljs {
+  background: rgb(0, 0, 0, 0.85);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(8.9px);
+  -webkit-backdrop-filter: blur(8.9px);
+  border: 1px solid rgba(18, 18, 18, 0.5);
+}
+
+.hljs-ln-line.hljs-ln-code {
+  padding-left: 11px;
+}
+
+.hljs-ln-n {
+  padding-right: 5px;
+  color: grey;
+  text-align: right;
+}
+
+.hljs-ln-line,
+.hljs-ln-code {
+  padding-left: 1px;
+}
+
+.line-numbers {
+  counter-reset: line;
+  display: table-cell;
+  text-align: right;
+  padding-right: 10px;
+  user-select: none;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.line-numbers::before {
+  counter-increment: line;
+  content: counter(line);
+}
+
+/* output area */
+.output-heading {
+  color: rgb(0, 0, 0);
+  margin-bottom: 5px;
+}
+
+.output-content {
+  color: rgb(255, 255, 255);
+  background: rgb(0, 0, 0, 0.85);
+  border-radius: 10px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(8.9px);
+  -webkit-backdrop-filter: blur(8.9px);
+  border: 1px solid rgba(18, 18, 18, 0.5);
+  padding: 10px;
+}

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accordion Iframes</title>
+    <link rel="stylesheet" href="navbar.css" type="text/css" />
+    <style>
+        h1 {
+            text-align: center;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .accordion {
+            border: 1px solid #ddd;
+            margin: 10px;
+        }
+
+        .accordion-button {
+            background-color: rgba(1, 151, 245, 0.478);
+            color: #000000;
+            cursor: pointer;
+            padding: 10px;
+            width: 100%;
+            text-align: left;
+            border: none;
+            outline: none;
+            /*border-radius:2rem;*/
+        }
+
+        .accordion h1 {
+            margin: 0;
+        }
+
+        .iframe-container {
+            display: none;
+        }
+
+        iframe {
+            height: 500px;
+            width: 100%;
+            border: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="navbar"></div>
+
+    <script>
+        fetch('navbar.html')
+            .then(response => response.text())
+            .then(data => {
+                const div = document.createElement('div');
+                div.innerHTML = data;
+                Array.from(div.getElementsByTagName('script')).forEach(oldScript => {
+                    const newScript = document.createElement('script');
+                    Array.from(oldScript.attributes)
+                        .forEach(attr => newScript.setAttribute(attr.name, attr.value));
+                    newScript.appendChild(document.createTextNode(oldScript.innerHTML));
+                    oldScript.parentNode.replaceChild(newScript, oldScript);
+                });
+                document.getElementById('navbar').appendChild(div);
+                Array.from(div.querySelectorAll('*')).forEach(node => {
+                    Array.from(node.attributes).forEach(attr => {
+                        if (/^on/.test(attr.name)) {
+                            node[attr.name] = new Function(attr.value);
+                        }
+                    });
+                });
+            });
+    </script>
+    <div class="accordion">
+        <button class="accordion-button">
+            <h1>LIST</h1>
+        </button>
+        <div class="iframe-container">
+            <iframe src="/ASSIGNMENT 2/list.html"></iframe>
+        </div>
+    </div>
+    <div class="accordion">
+        <button class="accordion-button">
+            <h1>SET</h1>
+        </button>
+        <div class="iframe-container">
+            <iframe src="/ASSIGNMENT 2/set.html"></iframe>
+        </div>
+    </div>
+
+    <div class="accordion">
+        <button class="accordion-button">
+            <h1>TUPLE</h1>
+        </button>
+        <div class="iframe-container">
+            <iframe src="/ASSIGNMENT 2/tuple.html"></iframe>
+        </div>
+    </div>
+    <div class="accordion">
+        <button class="accordion-button">
+            <h1>DICTIONARY</h1>
+        </button>
+        <div class="iframe-container">
+            <iframe src="/ASSIGNMENT 2/dictionary.html"></iframe>
+        </div>
+    </div>
+
+    <script>
+        // Add click event listener to accordion buttons
+        var accordionButtons = document.querySelectorAll(".accordion-button");
+
+        accordionButtons.forEach(function (button) {
+            button.addEventListener("click", function () {
+                // Toggle the display of the clicked accordion's iframe container
+                var iframeContainer = this.nextElementSibling;
+                if (iframeContainer.style.display === "block") {
+                    iframeContainer.style.display = "none";
+                } else {
+                    iframeContainer.style.display = "block";
+                }
+
+                // Close other accordion sections
+                var allIframeContainers = document.querySelectorAll(".iframe-container");
+                allIframeContainers.forEach(function (container) {
+                    if (container !== iframeContainer) {
+                        container.style.display = "none";
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

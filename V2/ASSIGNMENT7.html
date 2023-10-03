@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/styles/a11y-dark.min.css" />
+    <link rel="stylesheet" href="style.css" type="text/css" />
+    <link rel="stylesheet" href="navbar.css" type="text/css" />
+    <link rel="shortcut icon" href="/logo.png" />
+    <title>ASSIGNMENT 7</title>
+</head>
+
+<body>
+    <div id="navbar"></div>
+
+    <script>
+        fetch('navbar.html')
+            .then(response => response.text())
+            .then(data => {
+                const div = document.createElement('div');
+                div.innerHTML = data;
+                Array.from(div.getElementsByTagName('script')).forEach(oldScript => {
+                    const newScript = document.createElement('script');
+                    Array.from(oldScript.attributes)
+                        .forEach(attr => newScript.setAttribute(attr.name, attr.value));
+                    newScript.appendChild(document.createTextNode(oldScript.innerHTML));
+                    oldScript.parentNode.replaceChild(newScript, oldScript);
+                });
+                document.getElementById('navbar').appendChild(div);
+                Array.from(div.querySelectorAll('*')).forEach(node => {
+                    Array.from(node.attributes).forEach(attr => {
+                        if (/^on/.test(attr.name)) {
+                            node[attr.name] = new Function(attr.value);
+                        }
+                    });
+                });
+            });
+    </script>
+
+
+    <div class="container mt-5">
+        <div id="accordion"></div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"></script>
+    <script
+        src="//cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+
+    <script>
+        const ass = 7;
+        async function fetchTextContent(url) {
+            const response = await fetch(url);
+            const text = await response.text();
+            return text;
+        }
+
+        async function fetchOutputContent(language, questionNumber) {
+            const url =
+                language === "c"
+                    ? `https://cdn.jsdelivr.net/gh/sayantan-2/CSE-DSA-LAB@main/assignment%20${ass}/c/output/${questionNumber}.txt`
+                    : `https://cdn.jsdelivr.net/gh/sayantan-2/CSE-DSA-LAB@main/assignment%20${ass}/python/output/${questionNumber}.txt`;
+
+            const response = await fetch(url);
+            const outputContent = await response.text();
+            return outputContent;
+        }
+
+        async function main() {
+            const accordion = document.getElementById("accordion");
+            for (let i = 1; i <= 10; i++) {
+                const card = document.createElement("div");
+                card.classList.add("card");
+                const cardHeader = document.createElement("div");
+                cardHeader.classList.add("card-header");
+                const h2 = document.createElement("h2");
+                h2.classList.add("mb-0");
+                const button = document.createElement("button");
+                button.classList.add("btn", "btn-link");
+                button.setAttribute("type", "button");
+                button.setAttribute("data-toggle", "collapse");
+                button.setAttribute("data-target", `#collapse${i}`);
+                button.setAttribute("aria-expanded", "true");
+                button.setAttribute("aria-controls", `collapse${i}`);
+                button.style.width = "100%";
+                const question = await fetchTextContent(
+                    `https://cdn.jsdelivr.net/gh/sayantan-2/CSE-DSA-LAB@main/assignment%20${ass}/question/${i}.txt`
+                );
+                button.textContent = `Q${i}: ${question}`;
+                h2.appendChild(button);
+                cardHeader.appendChild(h2);
+                const cardCollapse = document.createElement("div");
+                cardCollapse.classList.add("collapse");
+                cardCollapse.setAttribute("id", `collapse${i}`);
+                cardCollapse.setAttribute("data-parent", "#accordion");
+
+                const cardBody = document.createElement("div");
+                cardBody.classList.add("card-body");
+
+                const codeTabs = document.createElement("ul");
+                codeTabs.classList.add("nav", "nav-tabs");
+                codeTabs.setAttribute("role", "tablist");
+
+                const cTab = document.createElement("li");
+                cTab.classList.add("nav-item");
+                const cTabLink = document.createElement("a");
+                cTabLink.classList.add("nav-link", "active");
+                cTabLink.setAttribute("id", `cTab${i}`);
+                cTabLink.setAttribute("data-toggle", "tab");
+                cTabLink.setAttribute("href", `#cContent${i}`);
+                cTabLink.setAttribute("role", "tab");
+                cTabLink.setAttribute("aria-controls", `cContent${i}`);
+                cTabLink.setAttribute("aria-selected", "true");
+                cTabLink.textContent = "C";
+                cTab.appendChild(cTabLink);
+                const pythonTab = document.createElement("li");
+                pythonTab.classList.add("nav-item");
+                const pythonTabLink = document.createElement("a");
+                pythonTabLink.classList.add("nav-link");
+                pythonTabLink.setAttribute("id", `pythonTab${i}`);
+                pythonTabLink.setAttribute("data-toggle", "tab");
+                pythonTabLink.setAttribute("href", `#pythonContent${i}`);
+                pythonTabLink.setAttribute("role", "tab");
+                pythonTabLink.setAttribute("aria-controls", `pythonContent${i}`);
+                pythonTabLink.setAttribute("aria-selected", "false");
+                pythonTabLink.textContent = "Python";
+                pythonTab.appendChild(pythonTabLink);
+                codeTabs.appendChild(cTab);
+                codeTabs.appendChild(pythonTab);
+                const codeTabsContent = document.createElement("div");
+                codeTabsContent.classList.add("tab-content");
+                codeTabsContent.setAttribute("id", `languageTabsContent${i}`);
+                const cContent = document.createElement("div");
+                cContent.classList.add("tab-pane", "fade", "show", "active");
+                cContent.setAttribute("id", `cContent${i}`);
+                cContent.setAttribute("role", "tabpanel");
+                cContent.setAttribute("aria-labelledby", `cTab${i}`);
+
+                // Create a div for line numbers
+                const lineNumbersDiv = document.createElement("div");
+                lineNumbersDiv.classList.add("line-numbers");
+                cContent.appendChild(lineNumbersDiv);
+                const cCodeContent = await fetchTextContent(
+                    `https://cdn.jsdelivr.net/gh/sayantan-2/CSE-DSA-LAB@main/assignment%20${ass}/c/programs/${i}.c`
+                );
+                const cCodeContentEscaped = cCodeContent
+                    .replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;");
+                cContent.innerHTML = `<pre><code class="hljs language-c">${cCodeContentEscaped}</code></pre>`;
+                const pythonContent = document.createElement("div");
+                pythonContent.classList.add("tab-pane", "fade");
+                pythonContent.setAttribute("id", `pythonContent${i}`);
+                pythonContent.setAttribute("role", "tabpanel");
+                pythonContent.setAttribute("aria-labelledby", `pythonTab${i}`);
+                const pythonCodeContent = await fetchTextContent(
+                    `https://cdn.jsdelivr.net/gh/sayantan-2/CSE-DSA-LAB@main/assignment%20${ass}/python/programs/${i}.py`
+                );
+                pythonContent.innerHTML = `<pre><code class="hljs language-python">${pythonCodeContent}</code></pre>`;
+                codeTabsContent.appendChild(cContent);
+                codeTabsContent.appendChild(pythonContent);
+                cardBody.appendChild(codeTabs);
+                // Create dot controls
+                const dotsControls = document.createElement("div");
+                dotsControls.classList.add("dots-controls");
+                dotsControls.innerHTML = `
+  <div class="dot red"></div>
+  <div class="dot yellow"></div>
+  <div class="dot green"></div>
+`;
+
+                // Append the dot controls after codeTabs and before codeTabsContent
+                cardBody.appendChild(dotsControls);
+
+                cardBody.appendChild(codeTabsContent);
+
+                // Create card footer for output area
+                const cardFooter = document.createElement("div");
+                cardFooter.classList.add("card-footer");
+
+                // Create output heading
+                const outputHeading = document.createElement("h4");
+                outputHeading.textContent = "Output";
+                outputHeading.classList.add("output-heading");
+                cardFooter.appendChild(outputHeading);
+
+                // Create output area
+                const outputArea = document.createElement("div");
+                outputArea.classList.add("output-area");
+                cardFooter.appendChild(outputArea);
+
+                // Fetch and display initial output content
+                const initialOutput = await fetchOutputContent("c", i);
+                outputArea.innerHTML = `<pre class="output-content">${initialOutput}</pre>`;
+
+                // Event listener for tab change
+                codeTabs.addEventListener("click", async (event) => {
+                    const language = event.target.textContent.toLowerCase();
+                    const outputContent = await fetchOutputContent(language, i);
+                    const outputContentElement =
+                        outputArea.querySelector(".output-content");
+                    outputContentElement.textContent = outputContent;
+                });
+
+                cardCollapse.appendChild(cardBody);
+                cardCollapse.appendChild(cardFooter);
+                card.appendChild(cardHeader);
+                card.appendChild(cardCollapse);
+                accordion.appendChild(card);
+            }
+
+            hljs.highlightAll();
+            hljs.initLineNumbersOnLoad();
+        }
+        main();
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script
+  </body>
+</html>
