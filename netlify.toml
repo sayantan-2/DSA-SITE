@@ -1,0 +1,3 @@
+[build]
+base = "v2"
+publish = "v2/"
