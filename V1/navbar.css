@@ -1,0 +1,32 @@
+.navbar-brand ,
+.nav-link{
+    color: white;
+}
+.navbar-brand:hover ,
+.nav-link:hover{
+    color: blue;
+}
+.navbar-nav .nav-link.active, .navbar-nav .nav-link.show{
+    color: blue;
+}
+.navbar{
+    background-color: black;
+}
+.nav-link.disabled{
+    color: #ffffff38;
+}
+.navbar-toggler{
+    
+    background-color: gray;
+}
+#footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: black;
+    color: white;
+    text-align: center;
+    color: gray;
+    font-family: 'Roboto Mono', monospace;
+  }

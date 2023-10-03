@@ -1,0 +1,71 @@
+
+.code pre code.python {
+  background-color: #2d2d2d;
+  /* Set the background color for Python code block */
+  padding: 10px;
+  border-radius: 5px;
+  color: #f8f8f8;
+  /* Set the text color for Python code block */
+}
+.code pre code.c{
+  background-color: #2d2d2d;
+  /* Set the background color for Python code block */
+  padding: 10px;
+  border-radius: 5px;
+  color: #f8f8f8;
+  /* Set the text color for Python code block */
+}
+
+#navbar::before {
+  content: "";
+  position: absolute;
+  background-color: black;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: -1;
+  opacity: 0.9;
+}
+#accordionExample{
+  height: 100%;
+}
+
+.output {
+  background-color: #2d2d2d;
+  /* Set the background color for output block */
+  padding: 10px;
+  border-radius: 5px;
+  color: white;
+}
+
+.accordion-body {
+  color: #2d2d2d;
+  background-color: lightblue;
+}
+button p {
+  padding: 0px 19px;
+}
+
+button.accordion-button.collapsed{
+  background-color: #2d2d2d;
+  color: white;
+}
+.accordion-button:not(.collapsed) {
+  background-color: #2d2d2d;
+  color: bisque;
+}
+.bd-example{
+  background-color: black;
+}
+#footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: black;
+  color: white;
+  text-align: center;
+  color: gray;
+  font-family: 'Roboto Mono', monospace;
+}
