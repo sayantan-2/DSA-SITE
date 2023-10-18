@@ -3,7 +3,7 @@
 
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ASSIGNMENT-5 C</title>
+  <title>ASSIGNMENT-9 PYTHON</title>
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/styles/a11y-dark.min.css" />
   <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"></script>
   <!-- Add Bootstrap CSS -->
@@ -55,8 +55,8 @@
     }
 
     async function main() {
-      const lang = "c";
-      const ass_no = "5";
+      const lang = "python";
+      const ass_no = "9";
       const path = `assignment ${ass_no}/${lang}`;
       const [folderCount, fileCount] = await getRepoContentCount(path);
       const repoContentCount = document.querySelector("#repoContentCount");
@@ -67,7 +67,7 @@
       for (let i = 1; i <= fileCount; i++) {
         // Add the URL for the Python file inside the programs folder
         urls.push(
-          `https://cdn.jsdelivr.net/gh/${owner}/${repo}@main/assignment%20${ass_no}/${lang}/programs/${i}.c`
+          `https://cdn.jsdelivr.net/gh/${owner}/${repo}@main/assignment%20${ass_no}/${lang}/programs/${i}.py`
         );
         // Add the URL for the text file inside the output folder
         urls.push(
