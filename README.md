@@ -13,7 +13,7 @@ This website is a platform for sharing solutions to Data Structures and Algorith
 - **Searchable**: The website includes a search feature, allowing you to easily find solutions for specific problems.
 
 ## Solutions Repository
-The solutions displayed on the website are stored in a separate GitHub repository. You can access the repository at [this link](). Please feel free to explore the repository and use the solutions for learning purposes.
+The solutions displayed on the website are stored in a separate GitHub repository. You can access the repository at [this link](https://github.com/sayantan-2/CSE-DSA-LAB). Please feel free to explore the repository and use the solutions for learning purposes.
 
 ## Tech Stack
 The website is built using the following technologies:
