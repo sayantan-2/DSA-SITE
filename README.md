@@ -1,7 +1,7 @@
 # DSA Solutions Website
 
 ## check here
-- [Version - 1](https://codeyard.netlify.app/v1) (In Collaboration with [Soumyadeep Chandra](https://codeyard.netlify.app/v1)
+- [Version - 1](https://codeyard.netlify.app/v1) (In Collaboration with [Soumyadeep Chandra](https://codeyard.netlify.app/v1))
 - [Version - 2](https://codeyard.netlify.app/v2)
 
 ## Overview
