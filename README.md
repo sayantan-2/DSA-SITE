@@ -1,4 +1,7 @@
 # DSA Solutions Website
+##Try here
+- [Version - 1](https://codeyard.netlify.app/v1)
+- [Version - 2](https://codeyard.netlify.app/v2)
 
 ## Overview
 This website is a platform for sharing solutions to Data Structures and Algorithms (DSA) problems. The solutions are implemented in C and Python and are intended to serve as a learning resource for students and anyone interested in DSA.
